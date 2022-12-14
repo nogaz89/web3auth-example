@@ -46,7 +46,8 @@
     "react-select": "^5.7.0",
     "typescript": "4.9.3",
     "web3": "^1.8.1",
-    "web3-core": "^1.8.1"
+    "web3-core": "^1.8.1",
+    "web3auth-react": "^1.0.8"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

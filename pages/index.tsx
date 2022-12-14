@@ -3,8 +3,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import Select from 'react-select'
+// @ts-ignore
+import { useWeb3auth } from 'web3auth-react'
 
-import { useWeb3auth } from '../components/Web3Auth'
 import networks from '../config/networks'
 import styles from '../styles/Home.module.css'
 
