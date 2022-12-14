@@ -3,9 +3,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import Select from 'react-select'
-// @ts-ignore
-import { useWeb3auth } from 'web3auth-react'
 
+// @ts-ignore
+// import { useWeb3auth } from 'web3auth-react'
 import networks from '../config/networks'
 import styles from '../styles/Home.module.css'
 
@@ -23,8 +23,17 @@ const options: optionType[] = networks.map((network) => ({
 
 export const Home = () => {
   const [selectedOption, setSelectedOption] = useState(options[0])
-  const { account, balance, chainId, status, userInfo, activate, deactivate, changeNetwork } =
-    useWeb3auth()
+  const { account, balance, chainId, status, userInfo, activate, deactivate, changeNetwork } = {
+    account: '',
+    balance: 1,
+    chainId: '',
+    status: '',
+    userInfo: { name: 'test', email: 'test', profileImage: 'test', typeOfLogin: 'test' },
+    activate: () => {},
+    deactivate: () => {},
+    changeNetwork: ({}) => {}
+  }
+  // useWeb3auth()
 
   const handleChange = (selectedOption: optionType) => {
     setSelectedOption(selectedOption)
