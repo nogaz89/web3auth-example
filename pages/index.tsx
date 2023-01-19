@@ -22,8 +22,17 @@ const options: optionType[] = networks.map((network) => ({
 
 export const Home = () => {
   const [selectedOption, setSelectedOption] = useState(options[0])
-  const { account, balance, chainId, status, userInfo, activate, deactivate, changeNetwork } =
-    useWeb3auth()
+  const {
+    account,
+    balance,
+    chainId,
+    privateKey,
+    status,
+    userInfo,
+    activate,
+    deactivate,
+    changeNetwork
+  } = useWeb3auth()
 
   const handleChange = (selectedOption: optionType) => {
     setSelectedOption(selectedOption)
@@ -54,6 +63,7 @@ export const Home = () => {
             value={selectedOption}
             onChange={(opt) => handleChange(opt as optionType)}
             options={options}
+            instanceId="network"
           />
           {status === ADAPTER_STATUS.CONNECTED ? (
             <button className={styles.button} onClick={deactivate}>
@@ -76,6 +86,10 @@ export const Home = () => {
             <div className={styles.card}>
               <h3>Accounts</h3>
               <div>{account}</div>
+            </div>
+            <div className={styles.card}>
+              <h3>Private Key</h3>
+              <div>{privateKey}</div>
             </div>
             <div className={styles.card}>
               <h3>Balance</h3>

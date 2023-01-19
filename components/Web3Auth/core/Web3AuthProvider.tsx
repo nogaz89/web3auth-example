@@ -13,6 +13,7 @@ import { IWeb3AuthContext, useGetLibrary, useWeb3AuthInit, web3AuthProviderProps
 
 const initialState: IWeb3AuthContext = {
   account: null,
+  privateKey: undefined,
   balance: null,
   chainId: null,
   error: null,
@@ -37,6 +38,7 @@ export const Web3AuthProvider = ({
   children
 }: web3AuthProviderProps): JSX.Element => {
   const [account, setAccount] = useState<string | undefined>(undefined)
+  const [privateKey, setPrivateKey] = useState<string | undefined>(undefined)
   const [balance, setBalance] = useState<string | null>(null)
   const [chainId, setChainId] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -98,12 +100,15 @@ export const Web3AuthProvider = ({
       try {
         if (library) {
           const currentAccount = (await library.eth.getAccounts())[0]
+          // @ts-ignore
+          // const currentPrivateKey = await library.eth.getPrivateKey(currentAccount)
           const currentChainId = await library.eth.getChainId()
           const balance = library.utils.fromWei(await library.eth.getBalance(currentAccount))
           const userInfo = (await web3auth?.getUserInfo()) as UserInfo
 
           if (currentAccount !== account) setAccount(currentAccount)
           if (currentChainId !== chainId) setChainId(currentChainId)
+          // if (currentPrivateKey !== privateKey) setPrivateKey(currentPrivateKey)
           setBalance(balance)
           setUserInfo(userInfo)
         } else {
@@ -117,7 +122,7 @@ export const Web3AuthProvider = ({
       }
     }
     update()
-  }, [account, chainId, library, web3auth])
+  }, [account, chainId, library, privateKey, web3auth])
 
   // Set status when web3auth status changes
   useEffect(() => {
@@ -187,6 +192,7 @@ export const Web3AuthProvider = ({
     <Web3AuthContext.Provider
       value={{
         account,
+        privateKey,
         balance,
         chainId,
         error,

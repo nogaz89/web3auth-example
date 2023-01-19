@@ -11,6 +11,7 @@ export declare const OPENLOGIN_NETWORK: {
 
 export interface IWeb3AuthContext {
   account: string | null | undefined
+  privateKey: string | undefined
   balance: string | null
   chainId: number | null
   error: string | null
